@@ -1,0 +1,44 @@
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'getMax' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts STRING_ARRAY operations as parameter.
+#
+
+def getMax(operations):
+    stack = [0]
+    my = []
+    for i in operations:
+        if int(i[0]) == 1:
+            n = int(i[2:])
+            stack.append(max(n,stack[-1]))
+        elif int(i[0]) == 2:
+            if stack:
+                stack.pop()
+        else:
+            my.append(stack[-1])
+    return my
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    ops = []
+
+    for _ in range(n):
+        ops_item = input()
+        ops.append(ops_item)
+
+    res = getMax(ops)
+
+    fptr.write('\n'.join(map(str, res)))
+    fptr.write('\n')
+
+    fptr.close()
